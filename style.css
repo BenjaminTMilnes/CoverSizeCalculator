@@ -1,0 +1,37 @@
+body {
+    background-color: rgba(16, 16, 16, 1);
+    margin: 0;
+    padding: 0;
+}
+
+.controlbar {
+    background-color: rgba(32, 32, 32, 1);
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 13px;
+    color: rgba(240, 240, 240, 1);
+    display: flex;
+    flex-direction: row;
+}
+
+.control label {
+    padding: 0px 5px 0px 25px;
+}
+
+input[type="number"], input[type="text"] {
+    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-size: inherit;
+    background-color: rgba(48, 48, 48, 1);
+    border: 1px solid rgba(128, 128, 128, 1);
+    padding: 5px;
+    color: rgba(240, 240, 240, 1);
+    border-radius: 2px;
+    outline: none;
+    width: 10em;
+}
+
+input[type="number"]:focus, input[type="text"]:focus {
+    outline: none;
+    border: 1px solid hsla(220, 50%, 50%, 1);
+}

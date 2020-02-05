@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cover Size Calculator</title>
+
+    <meta charset="utf-8" />
+    <meta name="description" content="A nano-app for calculating the dimensions of book covers - useful for self-publishing." />
+    <meta name="keywords" content="cover, book cover, cover size, page size, book cover calculator, cover size calculator, calculator, cover designer, publishing, self-publishing" />
+    <meta property="og:image" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.benjamintmilnes.com/cover-size-calculator/" />
+    <meta property="og:title" content="Cover Size Calculator" />
+    <meta property="og:description" content="A nano-app for calculating the dimensions of book covers - useful for self-publishing." />
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i&amp;subset=greek,greek-ext,latin-ext" rel="stylesheet">
+
+    <link href="style.css" type="text/css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+
+    <script src="http://www.physicsformulae.com/2dgraphicsjs/maths.js"></script>
+    <script src="http://www.physicsformulae.com/2dgraphicsjs/graphics.js"></script>
+    <script src="http://www.physicsformulae.com/2dgraphicsjs/application.js"></script>
+
+    <script type="text/javascript" src="app.js"></script>
+
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+
+<body>
+    <div class="controlbar">
+        <div class="control">
+            <label for="pagewidth">Page Width:</label>
+            <input type="text" id="pagewidth" tabindex="1" placeholder="e.g. 17.6 cm" />
+        </div>
+        <div class="control">
+            <label for="pageheight">Page Height:</label>
+            <input type="text" id="pageheight" tabindex="2" placeholder="e.g. 25.0 cm" />
+        </div>
+        <div class="control">
+            <label for="paperthickness">Paper Thickness:</label>
+            <input type="text" id="paperthickness" tabindex="3" placeholder="e.g. 0.002252 in" />
+        </div>
+        <div class="control">
+            <label for="numberofpages">Number of Pages:</label>
+            <input type="text" id="numberofpages" tabindex="4" placeholder="e.g. 350" />
+        </div>
+    </div>
+    <div class="preview">
+        <canvas id="previewcanvas"></canvas>
+    </div>
+</body>
+
+</html>
