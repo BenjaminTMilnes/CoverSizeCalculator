@@ -49,6 +49,27 @@
     <div class="controlbar">
         <h1>Cover Size Calculator</h1>
         <div class="control">
+            <label for="preset">Presets</label>
+                <select id="preset" ng-model="preset">
+                    <option value="size1">5 in &times; 8 in</option>
+                    <option value="size2">5.25 in &times; 8 in</option>
+                    <option value="size3">5.5 in &times; 8.5 in</option>
+                    <option value="size4">6 in &times; 9 in</option>
+                    <option value="size5">7 in &times; 10 in</option>
+                    <option value="size6">7.5 in &times; 9.25 in</option>
+                    <option value="size7">8 in &times; 10 in</option>
+                    <option value="size8">8.25 in &times; 6 in</option>
+                    <option value="size9">8.25 in &times; 8.25 in</option>
+                    <option value="size10">8.5 in &times; 8.5 in</option>
+                    <option value="size11">8.5 in &times; 11 in</option>
+                    <option value="size12">12.85 cm &times; 19.84 cm</option>
+                    <option value="size13">15.6 cm &times; 23.39 cm</option>
+                    <option value="size14">16.99 cm &times; 24.41 cm</option>
+                    <option value="size15">18.9 cm &times; 24.61 cm</option>
+                    <option value="a4">21 cm &times; 29.7 cm (A4)</option>                
+                </select>
+       </div>
+        <div class="control">
             <label for="pagewidth">Page Width:</label>
             <input type="text" id="pagewidth" ng-model="pageWidth" tabindex="1" placeholder="e.g. 17.6 cm" />
         </div>

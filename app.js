@@ -255,6 +255,25 @@ class Length {
     }
 }
 
+var presets = {
+    "size1": ["5 in", "8 in"],
+    "size2": ["5.25 in", "8 in"],
+    "size3": ["5.5 in", "8.5 in"],
+    "size4": ["6 in", "9 in"],
+    "size5": ["7 in", "10 in"],
+    "size6": ["7.5 in", "9.25 in"],
+    "size7": ["8 in", "10 in"],
+    "size8": ["8.25 in", "6 in"],
+    "size9": ["8.25 in", "8.25 in"],
+    "size10": ["8.5 in", "8.5 in"],
+    "size11": ["8.5 in", "11 in"],
+    "size12": ["12.85 cm", "19.84 cm"],
+    "size13": ["15.6 cm", "23.39 cm"],
+    "size14": ["16.99 cm", "24.41 cm"],
+    "size15": ["18.9 cm", "24.61 cm"],
+    "a4": ["21 cm", "29.7 cm"],
+}
+
 var application = angular.module("CoverSizeCalculator", []);
 
 application.controller("MainController", ["$scope", "$rootScope", function MainController($scope, $rootScope) {
@@ -337,6 +356,13 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
     $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "bleed", "showCoverCentres", "outputUnits"], function (newValues, oldValues) {
         $scope.updateOutput();
         $scope.updateCanvas();
+    });
+
+    $scope.$watchGroup(["preset"], function (newValues, oldValues) {
+        var preset = presets[$scope.preset];
+
+        $scope.pageWidth = $scope.getLength(preset[0]).toString();
+        $scope.pageHeight = $scope.getLength(preset[1]).toString();
     });
 
     new ClipboardJS(".copybutton");
