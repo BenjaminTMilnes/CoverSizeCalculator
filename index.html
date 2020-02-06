@@ -33,6 +33,19 @@
 </head>
 
 <body ng-controller="MainController">
+      <div class="aboutbox">
+          <h2>About</h2>
+          <p>This is a small app that helps you to calculate the total size of a book cover, as well as the positions of useful guide lines.</p>
+          <p>Enter the values for the page width, page height, paper thickness, number of pages, and bleed for your book. You can enter values in units of millimetres, 
+              centimetres, decimetres, or inches.
+          </p>
+             <p>
+                   Made by Benjamin T. Milnes
+             </p>
+  <p>
+              <a href="http://www.benjamintmilnes.com">&larr; Back to the main site.</a>
+          </p>
+      </div>
     <div class="controlbar">
         <h1>Cover Size Calculator</h1>
         <div class="control">
@@ -63,6 +76,16 @@
     <div class="outputbox">
         <table>
             <tr>
+                <td class="outputbox-heading">Units:</td>
+            <td colspan="2">
+                  <select ng-model="outputUnits">
+                      <option value="mm">Millimetres (mm)</option>
+                       <option value="cm">Centimetres (cm)</option>
+                       <option value="in">Inches (in)</option>
+                    </select>
+            </td>
+            </tr>
+            <tr>
                 <td class="outputbox-heading">Total Width:</td>
                 <td>
                     <input type="text" id="totalWidth" ng-model="totalWidth" tabindex="6" /></td>
@@ -76,6 +99,14 @@
                     <input type="text" id="totalHeight" ng-model="totalHeight" tabindex="7" /></td>
                 <td>
                     <button class="copybutton" data-clipboard-target="#totalHeight">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Spine Width:</td>
+                <td>
+                    <input type="text" id="spineWidth" ng-model="spineWidth" tabindex="7" /></td>
+                <td>
+                    <button class="copybutton" data-clipboard-target="#spineWidth">Copy</button>
                 </td>
             </tr>
             <tr>
@@ -126,7 +157,7 @@
                     <button class="copybutton" data-clipboard-target="#rightSpineEdge">Copy</button>
                 </td>
             </tr>
-            <tr>
+            <tr ng-show="showCoverCentres">
                 <td class="outputbox-heading">Front Cover Centre:</td>
                 <td>
                     <input type="text" id="frontCoverCentre" ng-model="frontCoverCentre" tabindex="14" /></td>
@@ -134,7 +165,7 @@
                     <button class="copybutton" data-clipboard-target="#frontCoverCentre">Copy</button>
                 </td>
             </tr>
-            <tr>
+            <tr  ng-show="showCoverCentres">
                 <td class="outputbox-heading">Back Cover Centre:</td>
                 <td>
                     <input type="text" id="backCoverCentre" ng-model="backCoverCentre" tabindex="15" /></td>

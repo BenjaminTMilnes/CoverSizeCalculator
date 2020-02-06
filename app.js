@@ -102,6 +102,8 @@ class CoverLayout {
 
         graphics.drawText("Left Bleed Edge".toUpperCase(), e9.add(v2(5, -this.bleed + this.pageHeight / 2)), "bottomcentre", 90, "Arial", 10, c);
         graphics.drawText("Right Bleed Edge".toUpperCase(), e10.add(v2(-5, -this.bleed + this.pageHeight / 2)), "bottomcentre", -90, "Arial", 10, c);
+        graphics.drawText("Top Bleed Edge".toUpperCase(), e9.add(v2(this.pageWidth / 10, 5)), "topleft", 0, "Arial", 10, c);
+        graphics.drawText("Bottom Bleed Edge".toUpperCase(), e12.add(v2(this.pageWidth / 10, -5)), "bottomleft", 0, "Arial", 10, c);
 
         if (this.showCoverCentres) {
             graphics.drawText("Front Cover Centre".toUpperCase(), e14.add(v2(5, this.pageHeight / 4)), "bottomcentre", 90, "Arial", 10, c2);
@@ -232,6 +234,22 @@ class Length {
         return new Length(this.toMM().magnitude / 10, "cm");
     }
 
+    toIn() {
+        return new Length(this.toMM().magnitude / 25.4, "in");
+    }
+
+    toUnit(unit = "mm") {
+        if (unit == "mm") {
+            return this.toMM();
+        }
+        else if (unit == "cm") {
+            return this.toCM();
+        }
+        else if (unit == "in") {
+            return this.toIn();
+        }
+    }
+
     toString() {
         return this.magnitude.toFixed(4) + " " + this.unit;
     }
@@ -247,6 +265,8 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
     $scope.numberOfPages = 350;
     $scope.bleed = "0.125 in";
     $scope.showCoverCentres = true;
+
+    $scope.outputUnits = "cm";
 
     $scope.getLength = function (text, d) {
         if (text === undefined || text === null) {
@@ -274,6 +294,7 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
 
         var totalWidth = new Length(b.magnitude * 2 + pw.magnitude * 2 + pt.magnitude * $scope.numberOfPages, "mm");
         var totalHeight = new Length(b.magnitude * 2 + ph.magnitude, "mm");
+        var spineWidth = new Length(pt.magnitude * $scope.numberOfPages, "mm");
         var leftBleedEdge = new Length(b.magnitude, "mm");
         var rightBleedEdge = new Length(b.magnitude + pw.magnitude * 2 + pt.magnitude * $scope.numberOfPages, "mm");
         var topBleedEdge = new Length(b.magnitude, "mm");
@@ -283,16 +304,17 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         var backCoverCentre = new Length(b.magnitude + pw.magnitude / 2, "mm");
         var frontCoverCentre = new Length(b.magnitude + pw.magnitude * 1.5 + pt.magnitude * $scope.numberOfPages, "mm");
 
-        $scope.totalWidth = totalWidth.toCM().toString();
-        $scope.totalHeight = totalHeight.toCM().toString();
-        $scope.leftBleedEdge = leftBleedEdge.toCM().toString();
-        $scope.rightBleedEdge = rightBleedEdge.toCM().toString();
-        $scope.topBleedEdge = topBleedEdge.toCM().toString();
-        $scope.bottomBleedEdge = bottomBleedEdge.toCM().toString();
-        $scope.leftSpineEdge = leftSpineEdge.toCM().toString();
-        $scope.rightSpineEdge = rightSpineEdge.toCM().toString();
-        $scope.backCoverCentre = backCoverCentre.toCM().toString();
-        $scope.frontCoverCentre = frontCoverCentre.toCM().toString();
+        $scope.totalWidth = totalWidth.toUnit($scope.outputUnits).toString();
+        $scope.totalHeight = totalHeight.toUnit($scope.outputUnits).toString();
+        $scope.spineWidth = spineWidth.toUnit($scope.outputUnits).toString();
+        $scope.leftBleedEdge = leftBleedEdge.toUnit($scope.outputUnits).toString();
+        $scope.rightBleedEdge = rightBleedEdge.toUnit($scope.outputUnits).toString();
+        $scope.topBleedEdge = topBleedEdge.toUnit($scope.outputUnits).toString();
+        $scope.bottomBleedEdge = bottomBleedEdge.toUnit($scope.outputUnits).toString();
+        $scope.leftSpineEdge = leftSpineEdge.toUnit($scope.outputUnits).toString();
+        $scope.rightSpineEdge = rightSpineEdge.toUnit($scope.outputUnits).toString();
+        $scope.backCoverCentre = backCoverCentre.toUnit($scope.outputUnits).toString();
+        $scope.frontCoverCentre = frontCoverCentre.toUnit($scope.outputUnits).toString();
     }
 
     $scope.updateCanvas = function () {
@@ -312,7 +334,7 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         l.showCoverCentres = $scope.showCoverCentres;
     }
 
-    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "bleed", "showCoverCentres"], function (newValues, oldValues) {
+    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "bleed", "showCoverCentres", "outputUnits"], function (newValues, oldValues) {
         $scope.updateOutput();
         $scope.updateCanvas();
     });
