@@ -44,7 +44,6 @@ class CoverLayout {
     }
 
     draw(graphics) {
-        var a = 5000;
         var b = 100;
         var c = "hsla(220, 60%, 70%, 1)";
         var c2 = "hsla(350, 60%, 70%, 1)";
@@ -156,14 +155,39 @@ class App extends Application {
 
     mouseDown(event) {
         var e = this.getAppEvent(event);
+
+        this.mouseIsDown = true;
+        this.offset = e.p.subtract(l.centre);
     }
 
     mouseUp(event) {
         var e = this.getAppEvent(event);
+
+        this.mouseIsDown = false;
     }
 
     mouseMove(event) {
         var e = this.getAppEvent(event);
+
+        if (this.mouseIsDown) {
+            l.centre = e.p.add(this.offset.times(-1));
+        }
+    }
+
+    scroll(event) {
+        var e = this.getAppEvent(event);
+
+        var dy = - event.deltaY;
+        var ds = zz;
+
+        if (event.shiftKey) {
+            ds = v(dy, 0);
+        }
+        else {
+            ds = v(0, dy);
+        }
+
+        l.centre = l.centre.add(ds);
     }
 
     update(timeDelta) {

@@ -2,50 +2,55 @@ body {
     background-color: rgba(16, 16, 16, 1);
     margin: 0;
     padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    font-size: 13px;
 }
 
 .controlbar {
-    background-color: rgba(32, 32, 32, 1);
-    padding: 10px;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: normal;
-    font-size: 13px;
-    color: rgba(240, 240, 240, 1);
     display: flex;
     flex-direction: row;
+    background-color: rgba(32, 32, 32, 1);
+    padding: 10px;
+    font-family: inherit;
+    font-weight: normal;
+    font-size: inherit;
+    color: rgba(240, 240, 240, 1);
 }
 
 .controlbar h1 {
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    padding: 4px 25px 4px 5px;
     margin: 0;
+    padding: 4px 25px 4px 5px;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
     text-transform: uppercase;
 }
 
 .control label {
-    padding: 0px 5px 0px 25px;
     margin: 0;
+    padding: 0px 5px 0px 25px;
+    font-weight: inherit;
+    font-size: inherit;
     user-select: none;
 }
 
 input[type="number"], input[type="text"] {
     font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: inherit;
-    background-color: rgba(48, 48, 48, 1);
-    border: 1px solid rgba(128, 128, 128, 1);
-    padding: 5px;
     color: rgba(240, 240, 240, 1);
+    border: 1px solid rgba(128, 128, 128, 1);
     border-radius: 2px;
     outline: none;
-    width: 7em;
+    background-color: rgba(48, 48, 48, 1);
     margin: 0;
+    padding: 5px;
+    width: 7em;
 }
 
 input[type="number"]:focus, input[type="text"]:focus {
+    border: 1px solid hsla(220, 60%, 70%, 1);
     outline: none;
-    border: 1px solid hsla(220, 50%, 50%, 1);
 }
 
 input[type="checkbox"] {
@@ -56,38 +61,38 @@ input[type="checkbox"] {
 }
 
 .copybutton {
-    font-family: 'Open Sans', sans-serif;
+    font-family: inherit;
     font-weight: normal;
     font-size: inherit;
-    background-color: hsla(220, 60%, 50%, 1);
-    border: 1px solid hsla(220, 60%, 60%, 1);
-    padding: 4px 15px;
-    margin-left: 5px;
-    height: 27px;
     color: rgba(240, 240, 240, 1);
+    border: 1px solid hsla(220, 60%, 60%, 1);
     border-radius: 2px;
     outline: none;
+    background-color: hsla(220, 60%, 50%, 1);
+    margin-left: 5px;
+    padding: 4px 15px;
+    height: 27px;
     cursor: pointer;
 }
 
-.copybutton:hover{
-    background-color: hsla(220, 60%, 60%, 1);
+.copybutton:hover {
     border: 1px solid hsla(220, 60%, 70%, 1);
+    background-color: hsla(220, 60%, 60%, 1);
 }
 
 .outputbox {
+    border: 1px solid rgba(48, 48, 48, 1);
+    border-radius: 2px;
     background-color: rgba(32, 32, 32, 1);
     padding: 10px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: inherit;
     font-weight: normal;
-    font-size: 13px;
+    font-size: inherit;
     color: rgba(240, 240, 240, 1);
     display: block;
     position: fixed;
     top: 58px;
     right: 10px;
-    border-radius: 2px;
-    border: 1px solid rgba(48, 48, 48, 1);
 }
 
 .outputbox-heading {
