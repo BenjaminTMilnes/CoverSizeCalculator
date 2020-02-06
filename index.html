@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="CoverSizeCalculator" xmlns:fb="http://ogp.me/ns/fb#">
 
 <head>
     <title>Cover Size Calculator</title>
@@ -32,23 +32,24 @@
     <meta name="viewport" content="width=device-width, user-scalable=no" />
 </head>
 
-<body>
+<body ng-controller="MainController">
     <div class="controlbar">
+        <h1>Cover Size Calculator</h1>
         <div class="control">
             <label for="pagewidth">Page Width:</label>
-            <input type="text" id="pagewidth" tabindex="1" placeholder="e.g. 17.6 cm" />
+            <input type="text" id="pagewidth" ng-model="pageWidth" tabindex="1" placeholder="e.g. 17.6 cm" />
         </div>
         <div class="control">
             <label for="pageheight">Page Height:</label>
-            <input type="text" id="pageheight" tabindex="2" placeholder="e.g. 25.0 cm" />
+            <input type="text" id="pageheight" ng-model="pageHeight" tabindex="2" placeholder="e.g. 25.0 cm" />
         </div>
         <div class="control">
             <label for="paperthickness">Paper Thickness:</label>
-            <input type="text" id="paperthickness" tabindex="3" placeholder="e.g. 0.002252 in" />
+            <input type="text" id="paperthickness" ng-model="paperThickness" tabindex="3" placeholder="e.g. 0.002252 in" />
         </div>
         <div class="control">
             <label for="numberofpages">Number of Pages:</label>
-            <input type="text" id="numberofpages" tabindex="4" placeholder="e.g. 350" />
+            <input type="text" id="numberofpages" ng-model="numberOfPages" tabindex="4" placeholder="e.g. 350" />
         </div>
     </div>
     <div class="preview">

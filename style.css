@@ -15,8 +15,18 @@ body {
     flex-direction: row;
 }
 
+.controlbar h1 {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 4px 25px 4px 5px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
 .control label {
     padding: 0px 5px 0px 25px;
+    margin: 0;
 }
 
 input[type="number"], input[type="text"] {
@@ -29,6 +39,7 @@ input[type="number"], input[type="text"] {
     border-radius: 2px;
     outline: none;
     width: 10em;
+    margin: 0;
 }
 
 input[type="number"]:focus, input[type="text"]:focus {
