@@ -67,6 +67,12 @@ input[type="checkbox"] {
     color: rgba(240, 240, 240, 1);
     border-radius: 2px;
     outline: none;
+    cursor: pointer;
+}
+
+.copybutton:hover{
+    background-color: hsla(220, 60%, 60%, 1);
+    border: 1px solid hsla(220, 60%, 70%, 1);
 }
 
 .outputbox {
@@ -86,6 +92,7 @@ input[type="checkbox"] {
 
 .outputbox-heading {
     padding-right: 5px;
+    user-select: none;
 }
 
 .preview {
