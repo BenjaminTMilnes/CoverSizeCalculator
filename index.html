@@ -45,12 +45,104 @@
         </div>
         <div class="control">
             <label for="paperthickness">Paper Thickness:</label>
-            <input type="text" id="paperthickness" ng-model="paperThickness" tabindex="3" placeholder="e.g. 0.002252 in" />
+            <input type="text" id="paperthickness" ng-model="paperThickness" tabindex="3" placeholder="e.g. 0.002252 in" style="width: 10em;" />
         </div>
         <div class="control">
             <label for="numberofpages">Number of Pages:</label>
             <input type="text" id="numberofpages" ng-model="numberOfPages" tabindex="4" placeholder="e.g. 350" />
         </div>
+        <div class="control">
+            <label for="bleed">Bleed:</label>
+            <input type="text" id="bleed" ng-model="bleed" tabindex="5" placeholder="e.g. 0.125 in" />
+        </div>
+        <div class="control">
+            <label for="showCoverCentres">Show cover centres:</label>
+            <input type="checkbox" id="showCoverCentres" ng-model="showCoverCentres" />
+        </div>
+    </div>
+    <div class="outputbox">
+        <table>
+            <tr>
+                <td class="outputbox-heading">Total Width:</td>
+                <td>
+                    <input type="text" ng-model="totalWidth" tabindex="6" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Total Height:</td>
+                <td>
+                    <input type="text" ng-model="totalHeight" tabindex="7" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Left Bleed Edge:</td>
+                <td>
+                    <input type="text" ng-model="leftBleedEdge" tabindex="8" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Right Bleed Edge:</td>
+                <td>
+                    <input type="text" ng-model="rightBleedEdge" tabindex="9" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Top Bleed Edge:</td>
+                <td>
+                    <input type="text" ng-model="topBleedEdge" tabindex="10" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Bottom Bleed Edge:</td>
+                <td>
+                    <input type="text" ng-model="bottomBleedEdge" tabindex="11" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Left Spine Edge:</td>
+                <td>
+                    <input type="text" ng-model="leftSpineEdge" tabindex="12" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Right Spine Edge:</td>
+                <td>
+                    <input type="text" ng-model="rightSpineEdge" tabindex="13" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Front Cover Centre:</td>
+                <td>
+                    <input type="text" ng-model="frontCoverCentre" tabindex="14" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="outputbox-heading">Back Cover Centre:</td>
+                <td>
+                    <input type="text" ng-model="backCoverCentre" tabindex="15" /></td>
+                <td>
+                    <button class="copybutton">Copy</button>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="preview">
         <canvas id="previewcanvas"></canvas>

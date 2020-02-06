@@ -27,6 +27,7 @@ body {
 .control label {
     padding: 0px 5px 0px 25px;
     margin: 0;
+    user-select: none;
 }
 
 input[type="number"], input[type="text"] {
@@ -38,11 +39,58 @@ input[type="number"], input[type="text"] {
     color: rgba(240, 240, 240, 1);
     border-radius: 2px;
     outline: none;
-    width: 10em;
+    width: 7em;
     margin: 0;
 }
 
 input[type="number"]:focus, input[type="text"]:focus {
     outline: none;
     border: 1px solid hsla(220, 50%, 50%, 1);
+}
+
+input[type="checkbox"] {
+    font-size: inherit;
+    margin: 5px;
+    position: relative;
+    top: 3px;
+}
+
+.copybutton {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: inherit;
+    background-color: hsla(220, 60%, 50%, 1);
+    border: 1px solid hsla(220, 60%, 60%, 1);
+    padding: 4px 15px;
+    margin-left: 5px;
+    height: 27px;
+    color: rgba(240, 240, 240, 1);
+    border-radius: 2px;
+    outline: none;
+}
+
+.outputbox {
+    background-color: rgba(32, 32, 32, 1);
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 13px;
+    color: rgba(240, 240, 240, 1);
+    display: block;
+    position: fixed;
+    top: 58px;
+    right: 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(48, 48, 48, 1);
+}
+
+.outputbox-heading {
+    padding-right: 5px;
+}
+
+.preview {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
 }

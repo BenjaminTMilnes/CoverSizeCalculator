@@ -9,6 +9,8 @@ class CoverLayout {
         this.bleed = 10;
 
         this.centre = v2(500, 500);
+
+        this.showCoverCentres = true;
     }
 
     get spineWidth() {
@@ -18,8 +20,8 @@ class CoverLayout {
     update() { }
 
     drawMeasureLine(graphics, from, to, labelText = "") {
-
-        var u = to.subtract(from).u;
+        var s = to.subtract(from);
+        var u = s.u;
         var n = u.n;
 
         var c = "hsla(220, 60%, 70%, 1)";
@@ -27,37 +29,82 @@ class CoverLayout {
         graphics.drawPath([from.add(n.times(5)), from.add(n.times(-5))], "none", c, 1);
         graphics.drawPath([from, to], "none", c, 1);
         graphics.drawPath([to.add(n.times(5)), to.add(n.times(-5))], "none", c, 1);
+    }
 
+    drawVerticalGuide(graphics, x, colour) {
+        var a = 5000;
+
+        graphics.drawPath([v2(x, -a), v2(x, a)], "none", colour, 1, [10, 5]);
+    }
+
+    drawHorizontalGuide(graphics, y, colour) {
+        var a = 5000;
+
+        graphics.drawPath([v2(-a, y), v2(a, y)], "none", colour, 1, [10, 5]);
     }
 
     draw(graphics) {
         var a = 5000;
         var b = 100;
         var c = "hsla(220, 60%, 70%, 1)";
+        var c2 = "hsla(350, 60%, 70%, 1)";
 
-        var e1 = this.centre.add(v2(-this.spineWidth / 2 - this.pageWidth, -this.pageHeight / 2));
-        var e2 = e1.add(v2(this.pageWidth * 2 + this.spineWidth, 0));
+        var e1 = this.centre.add(v2(-this.spineWidth / 2 - this.pageWidth - this.bleed, -this.pageHeight / 2 - this.bleed));
+        var e2 = e1.add(v2(this.pageWidth * 2 + this.spineWidth + this.bleed * 2, 0));
         var e3 = e2.add(v2(0, this.pageHeight));
         var e4 = e1.add(v2(0, this.pageHeight));
 
-        var e5 = e1.add(v2(this.pageWidth, 0));
+        var e5 = e1.add(v2(this.pageWidth + this.bleed, 0));
         var e6 = e5.add(v2(this.spineWidth, 0));
         var e7 = e6.add(v2(0, this.pageHeight));
         var e8 = e5.add(v2(0, this.pageHeight));
 
+        var e9 = e1.add(v2(this.bleed, this.bleed));
+        var e10 = e2.add(v2(-this.bleed, this.bleed));
+        var e11 = e3.add(v2(-this.bleed, - this.bleed));
+        var e12 = e4.add(v2(this.bleed, - this.bleed));
+
+        var e13 = e9.add(v2(this.pageWidth / 2));
+        var e14 = e10.add(v2(- this.pageWidth / 2));
+
         graphics.drawPath([e1, e2, e3, e4, e1], "rgba(32, 32, 32, 1)", "black", 0);
+        graphics.drawPath([e5, e6, e7, e8, e5], "rgba(48, 48, 48, 1)", "black", 0);
 
-        graphics.drawPath([e1.add(v2(0, -a)), e4.add(v2(0, a))], "none", c, 1, [10, 5]);
-        graphics.drawPath([e5.add(v2(0, -a)), e8.add(v2(0, a))], "none", c, 1, [10, 5]);
-        graphics.drawPath([e6.add(v2(0, -a)), e7.add(v2(0, a))], "none", c, 1, [10, 5]);
-        graphics.drawPath([e2.add(v2(0, -a)), e3.add(v2(0, a))], "none", c, 1, [10, 5]);
+        this.drawVerticalGuide(graphics, e1.x, c);
+        this.drawVerticalGuide(graphics, e5.x, c);
+        this.drawVerticalGuide(graphics, e6.x, c);
+        this.drawVerticalGuide(graphics, e2.x, c);
 
-        graphics.drawPath([e1.add(v2(-a, 0)), e2.add(v2(a, 0))], "none", c, 1, [10, 5]);
-        graphics.drawPath([e4.add(v2(-a, 0)), e3.add(v2(a, 0))], "none", c, 1, [10, 5]);
+        this.drawHorizontalGuide(graphics, e1.y, c);
+        this.drawHorizontalGuide(graphics, e4.y, c);
+
+        if (this.bleed > 0) {
+            this.drawVerticalGuide(graphics, e9.x, c);
+            this.drawVerticalGuide(graphics, e10.x, c);
+            this.drawHorizontalGuide(graphics, e9.y, c);
+            this.drawHorizontalGuide(graphics, e12.y, c);
+        }
+
+        if (this.showCoverCentres) {
+            this.drawVerticalGuide(graphics, e13.x, c2);
+            this.drawVerticalGuide(graphics, e14.x, c2);
+        }
 
         this.drawMeasureLine(graphics, e1.add(v2(-b, 4)), e4.add(v2(-b, -4)), "Total Height");
         this.drawMeasureLine(graphics, e1.add(v2(4, -b)), e2.add(v2(-4, -b)), "Total Width");
         this.drawMeasureLine(graphics, e5.add(v2(4, -b / 2)), e6.add(v2(-4, -b / 2)), "Spine Width");
+
+        graphics.drawText("Front Cover", e14.add(v2(0, this.pageHeight / 2)), "middlecentre", 0, "Book Antiqua", 30, "#F0F0F0");
+        graphics.drawText("Back Cover", e13.add(v2(0, this.pageHeight / 2)), "middlecentre", 0, "Book Antiqua", 30, "#F0F0F0");
+        graphics.drawText("Spine".toUpperCase(), e5.add(v2(this.spineWidth / 2, this.pageHeight / 8)), "middlecentre", 90, "Book Antiqua", 15, "#F0F0F0");
+
+        graphics.drawText("Left Spine Edge".toUpperCase(), e5.add(v2(-5, this.pageHeight / 2)), "bottomcentre", -90, "Arial", 10, c);
+        graphics.drawText("Right Spine Edge".toUpperCase(), e6.add(v2(5, this.pageHeight / 2)), "bottomcentre", 90, "Arial", 10, c);
+
+        if (this.showCoverCentres) {
+            graphics.drawText("Front Cover Centre".toUpperCase(), e14.add(v2(5, this.pageHeight / 4)), "bottomcentre", 90, "Arial", 10, c2);
+            graphics.drawText("Back Cover Centre".toUpperCase(), e13.add(v2(-5, this.pageHeight / 4)), "bottomcentre", -90, "Arial", 10, c2);
+        }
     }
 }
 
@@ -81,7 +128,6 @@ class App extends Application {
         this.resolutionFactor = 1;
 
         this.elements = [];
-
     }
 
     initialise() {
@@ -154,13 +200,26 @@ class Length {
             return new Length(this.magnitude * 25.4, "mm");
         }
     }
+
+    toCM() {
+        return new Length(this.toMM().magnitude / 10, "cm");
+    }
+
+    toString() {
+        return this.magnitude.toFixed(4) + " " + this.unit;
+    }
 }
 
 var application = angular.module("CoverSizeCalculator", []);
 
 application.controller("MainController", ["$scope", "$rootScope", function MainController($scope, $rootScope) {
 
+    $scope.pageWidth = "17.6 cm";
+    $scope.pageHeight = "25.0 cm"
+    $scope.paperThickness = "0.002252 in"
     $scope.numberOfPages = 350;
+    $scope.bleed = "0.125 in";
+    $scope.showCoverCentres = true;
 
     $scope.getLength = function (text, d) {
         if (text === undefined || text === null) {
@@ -180,22 +239,54 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         }
     }
 
-    $scope.updateCanvas = function () {
-
+    $scope.updateOutput = function () {
         var pw = this.getLength($scope.pageWidth, new Length(176, "mm")).toMM();
         var ph = this.getLength($scope.pageHeight, new Length(250, "mm")).toMM();
         var pt = this.getLength($scope.paperThickness, new Length(0.002252, "in")).toMM();
-        var r = pw.magnitude / ph.magnitude;
+        var b = this.getLength($scope.bleed, new Length(0.125, "in")).toMM();
 
-        l.pageHeight = app.height * 0.5;
-        l.pageWidth = r * l.pageHeight;
+        var totalWidth = new Length(b.magnitude * 2 + pw.magnitude * 2 + pt.magnitude * $scope.numberOfPages, "mm");
+        var totalHeight = new Length(b.magnitude * 2 + ph.magnitude, "mm");
+        var leftBleedEdge = new Length(b.magnitude, "mm");
+        var rightBleedEdge = new Length(b.magnitude + pw.magnitude * 2 + pt.magnitude * $scope.numberOfPages, "mm");
+        var topBleedEdge = new Length(b.magnitude, "mm");
+        var bottomBleedEdge = new Length(b.magnitude + ph.magnitude, "mm");
+        var leftSpineEdge = new Length(b.magnitude + pw.magnitude, "mm");
+        var rightSpineEdge = new Length(b.magnitude * 2 + pw.magnitude + pt.magnitude * $scope.numberOfPages, "mm");
+        var backCoverCentre = new Length(b.magnitude + pw.magnitude / 2, "mm");
+        var frontCoverCentre = new Length(b.magnitude + pw.magnitude * 1.5 + pt.magnitude * $scope.numberOfPages, "mm");
 
-        l.numberOfPages = $scope.numberOfPages;
-
+        $scope.totalWidth = totalWidth.toCM().toString();
+        $scope.totalHeight = totalHeight.toCM().toString();
+        $scope.leftBleedEdge = leftBleedEdge.toCM().toString();
+        $scope.rightBleedEdge = rightBleedEdge.toCM().toString();
+        $scope.topBleedEdge = topBleedEdge.toCM().toString();
+        $scope.bottomBleedEdge = bottomBleedEdge.toCM().toString();
+        $scope.leftSpineEdge = leftSpineEdge.toCM().toString();
+        $scope.rightSpineEdge = rightSpineEdge.toCM().toString();
+        $scope.backCoverCentre = backCoverCentre.toCM().toString();
+        $scope.frontCoverCentre = frontCoverCentre.toCM().toString();
     }
 
-    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages"], function (newValues, oldValues) {
+    $scope.updateCanvas = function () {
+        var pw = this.getLength($scope.pageWidth, new Length(176, "mm")).toMM();
+        var ph = this.getLength($scope.pageHeight, new Length(250, "mm")).toMM();
+        var pt = this.getLength($scope.paperThickness, new Length(0.002252, "in")).toMM();
+        var b = this.getLength($scope.bleed, new Length(0.125, "in")).toMM();
+
+        l.pageHeight = app.height * 0.5;
+
+        var r2 = l.pageHeight / ph.magnitude;
+
+        l.pageWidth = r2 * pw.magnitude;
+        l.paperThickness = r2 * pt.magnitude;
+        l.numberOfPages = $scope.numberOfPages;
+        l.bleed = r2 * b.magnitude;
+        l.showCoverCentres = $scope.showCoverCentres;
+    }
+
+    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "bleed", "showCoverCentres"], function (newValues, oldValues) {
+        $scope.updateOutput();
         $scope.updateCanvas();
     });
-
 }]);
