@@ -289,8 +289,8 @@ var application = angular.module("CoverSizeCalculator", []);
 application.controller("MainController", ["$scope", "$rootScope", function MainController($scope, $rootScope) {
 
     $scope.pageWidth = "17.6 cm";
-    $scope.pageHeight = "25.0 cm"
-    $scope.paperThickness = "0.002252 in"
+    $scope.pageHeight = "25.0 cm";
+    $scope.paperThickness = "0.0025 in";
     $scope.numberOfPages = 350;
     $scope.bleed = "0.125 in";
     $scope.showCoverCentres = true;

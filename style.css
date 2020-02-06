@@ -7,6 +7,24 @@ body {
     font-size: 13px;
 }
 
+.grid {
+    display: grid;
+    grid-template-columns: 350px auto 350px;
+    grid-template-rows: auto auto;
+}
+
+.leftcolumn {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+    padding: 10px;
+}
+
+.rightcolumn {
+    grid-column: 3 / span 1;
+    grid-row: 2 / span 1;
+    padding: 10px;
+}
+
 .aboutbox, .outputbox {
     border: 1px solid rgba(48, 48, 48, 1);
     border-radius: 2px;
@@ -17,13 +35,15 @@ body {
 }
 
 .aboutbox {
-    display: block;
-    position: fixed;
-    top: 58px;
-    left: 10px;
-    width: 25em;
     font-weight: lighter;
     padding: 25px;
+    margin-bottom: 10px;
+}
+
+@media(max-width:1000px) {
+    .aboutbox {
+        display: none;
+    }
 }
 
 .aboutbox h2 {
@@ -50,6 +70,8 @@ body {
 }
 
 .controlbar {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 1;
     display: flex;
     flex-direction: row;
     background-color: rgba(32, 32, 32, 1);
@@ -61,12 +83,19 @@ body {
 }
 
 .controlbar h1 {
-    margin: 0;
+    margin: 2px;
     padding: 4px 25px 4px 5px;
     font-family: inherit;
     font-weight: inherit;
     font-size: inherit;
     text-transform: uppercase;
+    min-width: 185px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .control label {
@@ -109,9 +138,13 @@ select {
 
 input[type="checkbox"] {
     font-size: inherit;
-    margin: 5px;
+    margin: 7px 5px;
     position: relative;
     top: 3px;
+}
+
+.control input[type="text"], .control select {
+    margin: 2px 0px;
 }
 
 .copybutton {
@@ -135,10 +168,6 @@ input[type="checkbox"] {
 
 .outputbox {
     font-weight: normal;
-    display: block;
-    position: fixed;
-    top: 58px;
-    right: 10px;
     padding: 10px;
 }
 

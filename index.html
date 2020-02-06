@@ -33,173 +33,187 @@
 </head>
 
 <body ng-controller="MainController">
-    <div class="aboutbox">
-        <h2>About</h2>
-        <p>
-            This is a small app that helps you to calculate the total size of a
-            book cover, as well as the positions of useful guide lines.
-        </p>
-        <p>
-            Enter the values for the page width, page height, paper thickness,
-            number of pages, and bleed for your book. You can enter values in
-            units of millimetres, centimetres, decimetres, or inches.
-        </p>
-        <p>
-            Made by Benjamin T. Milnes
-        </p>
-        <p>
-            <a href="http://www.benjamintmilnes.com">&larr; Back to the main site.</a>
-        </p>
-    </div>
-    <div class="controlbar">
-        <h1>Cover Size Calculator</h1>
-        <div class="control">
-            <label for="preset">Presets</label>
-            <select id="preset" ng-model="preset">
-                <option value="size1">5 in &times; 8 in</option>
-                <option value="size2">5.25 in &times; 8 in</option>
-                <option value="size3">5.5 in &times; 8.5 in</option>
-                <option value="size4">6 in &times; 9 in</option>
-                <option value="size5">7 in &times; 10 in</option>
-                <option value="size6">7.5 in &times; 9.25 in</option>
-                <option value="size7">8 in &times; 10 in</option>
-                <option value="size8">8.25 in &times; 6 in</option>
-                <option value="size9">8.25 in &times; 8.25 in</option>
-                <option value="size10">8.5 in &times; 8.5 in</option>
-                <option value="size11">8.5 in &times; 11 in</option>
-                <option value="size12">12.85 cm &times; 19.84 cm</option>
-                <option value="size13">15.6 cm &times; 23.39 cm</option>
-                <option value="size14">16.99 cm &times; 24.41 cm</option>
-                <option value="size15">18.9 cm &times; 24.61 cm</option>
-                <option value="a4">21 cm &times; 29.7 cm (A4)</option>
-            </select>
+    <div class="grid">
+        <div class="leftcolumn">
+            <div class="aboutbox">
+                <h2>About</h2>
+                <p>
+                    This is a small app that helps you to calculate the total size of a
+                    book cover, as well as the positions of useful guide lines.
+                </p>
+                <p>
+                    Enter the values for the page width, page height, paper thickness,
+                    number of pages, and bleed for your book. You can enter values in
+                    units of millimetres, centimetres, decimetres, or inches.
+                </p>
+                <p>
+                    Made by Benjamin T. Milnes
+                </p>
+                <p>
+                    <a href="http://www.benjamintmilnes.com">&larr; Back to the main site.</a>
+                </p>
+            </div>
+            <div class="aboutbox">
+                <h2>KDP Print Options</h2>
+                <p>If you're using KDP, the paper thicknesses for the different printing options are:</p>
+                <p>Cream paper: 0.0025 in <br />
+                    White paper: 0.002252 in</p>
+            </div>
         </div>
-        <div class="control">
-            <label for="pagewidth">Page Width:</label>
-            <input type="text" id="pagewidth" ng-model="pageWidth" tabindex="1" placeholder="e.g. 17.6 cm" />
-        </div>
-        <div class="control">
-            <label for="pageheight">Page Height:</label>
-            <input type="text" id="pageheight" ng-model="pageHeight" tabindex="2" placeholder="e.g. 25.0 cm" />
-        </div>
-        <div class="control">
-            <label for="paperthickness">Paper Thickness:</label>
-            <input type="text" id="paperthickness" ng-model="paperThickness" tabindex="3" placeholder="e.g. 0.002252 in" style="width: 10em;" />
-        </div>
-        <div class="control">
-            <label for="numberofpages">Number of Pages:</label>
-            <input type="text" id="numberofpages" ng-model="numberOfPages" tabindex="4" placeholder="e.g. 350" />
-        </div>
-        <div class="control">
-            <label for="bleed">Bleed:</label>
-            <input type="text" id="bleed" ng-model="bleed" tabindex="5" placeholder="e.g. 0.125 in" />
-        </div>
-        <div class="control">
-            <label for="showCoverCentres">Show cover centres:</label>
-            <input type="checkbox" id="showCoverCentres" ng-model="showCoverCentres" />
-        </div>
-    </div>
-    <div class="outputbox">
-        <table>
-            <tr>
-                <td class="outputbox-heading">Units:</td>
-                <td colspan="2">
-                    <select ng-model="outputUnits">
-                        <option value="mm">Millimetres (mm)</option>
-                        <option value="cm">Centimetres (cm)</option>
-                        <option value="in">Inches (in)</option>
+        <div class="controlbar">
+            <h1>Cover Size Calculator</h1>
+            <div class="controls">
+                <div class="control">
+                    <label for="preset">Presets</label>
+                    <select id="preset" ng-model="preset">
+                        <option value="size1">5 in &times; 8 in</option>
+                        <option value="size2">5.25 in &times; 8 in</option>
+                        <option value="size3">5.5 in &times; 8.5 in</option>
+                        <option value="size4">6 in &times; 9 in</option>
+                        <option value="size5">7 in &times; 10 in</option>
+                        <option value="size6">7.5 in &times; 9.25 in</option>
+                        <option value="size7">8 in &times; 10 in</option>
+                        <option value="size8">8.25 in &times; 6 in</option>
+                        <option value="size9">8.25 in &times; 8.25 in</option>
+                        <option value="size10">8.5 in &times; 8.5 in</option>
+                        <option value="size11">8.5 in &times; 11 in</option>
+                        <option value="size12">12.85 cm &times; 19.84 cm</option>
+                        <option value="size13">15.6 cm &times; 23.39 cm</option>
+                        <option value="size14">16.99 cm &times; 24.41 cm</option>
+                        <option value="size15">18.9 cm &times; 24.61 cm</option>
+                        <option value="a4">21 cm &times; 29.7 cm (A4)</option>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="outputbox-heading">Total Width:</td>
-                <td>
-                    <input type="text" id="totalWidth" ng-model="totalWidth" tabindex="6" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#totalWidth">Copy</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="outputbox-heading">Total Height:</td>
-                <td>
-                    <input type="text" id="totalHeight" ng-model="totalHeight" tabindex="7" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#totalHeight">Copy</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="outputbox-heading">Spine Width:</td>
-                <td>
-                    <input type="text" id="spineWidth" ng-model="spineWidth" tabindex="7" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#spineWidth">Copy</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="outputbox-heading">Left Bleed Edge:</td>
-                <td>
-                    <input type="text" id="leftBleedEdge" ng-model="leftBleedEdge" tabindex="8" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#leftBleedEdge">Copy</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="outputbox-heading">Right Bleed Edge:</td>
-                <td>
-                    <input type="text" id="rightBleedEdge" ng-model="rightBleedEdge" tabindex="9" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#rightBleedEdge">Copy</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="outputbox-heading">Top Bleed Edge:</td>
-                <td>
-                    <input type="text" id="topBleedEdge" ng-model="topBleedEdge" tabindex="10" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#topBleedEdge">Copy</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="outputbox-heading">Bottom Bleed Edge:</td>
-                <td>
-                    <input type="text" id="bottomBleedEdge" ng-model="bottomBleedEdge" tabindex="11" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#bottomBleedEdge">Copy</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="outputbox-heading">Left Spine Edge:</td>
-                <td>
-                    <input type="text" id="leftSpineEdge" ng-model="leftSpineEdge" tabindex="12" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#leftSpineEdge">Copy</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="outputbox-heading">Right Spine Edge:</td>
-                <td>
-                    <input type="text" id="rightSpineEdge" ng-model="rightSpineEdge" tabindex="13" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#rightSpineEdge">Copy</button>
-                </td>
-            </tr>
-            <tr ng-show="showCoverCentres">
-                <td class="outputbox-heading">Front Cover Centre:</td>
-                <td>
-                    <input type="text" id="frontCoverCentre" ng-model="frontCoverCentre" tabindex="14" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#frontCoverCentre">Copy</button>
-                </td>
-            </tr>
-            <tr ng-show="showCoverCentres">
-                <td class="outputbox-heading">Back Cover Centre:</td>
-                <td>
-                    <input type="text" id="backCoverCentre" ng-model="backCoverCentre" tabindex="15" /></td>
-                <td>
-                    <button class="copybutton" data-clipboard-target="#backCoverCentre">Copy</button>
-                </td>
-            </tr>
-        </table>
+                </div>
+                <div class="control">
+                    <label for="pagewidth">Page Width:</label>
+                    <input type="text" id="pagewidth" ng-model="pageWidth" tabindex="1" placeholder="e.g. 17.6 cm" />
+                </div>
+                <div class="control">
+                    <label for="pageheight">Page Height:</label>
+                    <input type="text" id="pageheight" ng-model="pageHeight" tabindex="2" placeholder="e.g. 25.0 cm" />
+                </div>
+                <div class="control">
+                    <label for="paperthickness">Paper Thickness:</label>
+                    <input type="text" id="paperthickness" ng-model="paperThickness" tabindex="3" placeholder="e.g. 0.002252 in" style="width: 10em;" />
+                </div>
+                <div class="control">
+                    <label for="numberofpages">Number of Pages:</label>
+                    <input type="text" id="numberofpages" ng-model="numberOfPages" tabindex="4" placeholder="e.g. 350" />
+                </div>
+                <div class="control">
+                    <label for="bleed">Bleed:</label>
+                    <input type="text" id="bleed" ng-model="bleed" tabindex="5" placeholder="e.g. 0.125 in" />
+                </div>
+                <div class="control">
+                    <label for="showCoverCentres">Show cover centres:</label>
+                    <input type="checkbox" id="showCoverCentres" ng-model="showCoverCentres" />
+                </div>
+            </div>
+        </div>
+        <div class="rightcolumn">
+            <div class="outputbox">
+                <table>
+                    <tr>
+                        <td class="outputbox-heading">Units:</td>
+                        <td colspan="2">
+                            <select ng-model="outputUnits">
+                                <option value="mm">Millimetres (mm)</option>
+                                <option value="cm">Centimetres (cm)</option>
+                                <option value="in">Inches (in)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="outputbox-heading">Total Width:</td>
+                        <td>
+                            <input type="text" id="totalWidth" ng-model="totalWidth" tabindex="6" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#totalWidth">Copy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="outputbox-heading">Total Height:</td>
+                        <td>
+                            <input type="text" id="totalHeight" ng-model="totalHeight" tabindex="7" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#totalHeight">Copy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="outputbox-heading">Spine Width:</td>
+                        <td>
+                            <input type="text" id="spineWidth" ng-model="spineWidth" tabindex="7" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#spineWidth">Copy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="outputbox-heading">Left Bleed Edge:</td>
+                        <td>
+                            <input type="text" id="leftBleedEdge" ng-model="leftBleedEdge" tabindex="8" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#leftBleedEdge">Copy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="outputbox-heading">Right Bleed Edge:</td>
+                        <td>
+                            <input type="text" id="rightBleedEdge" ng-model="rightBleedEdge" tabindex="9" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#rightBleedEdge">Copy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="outputbox-heading">Top Bleed Edge:</td>
+                        <td>
+                            <input type="text" id="topBleedEdge" ng-model="topBleedEdge" tabindex="10" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#topBleedEdge">Copy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="outputbox-heading">Bottom Bleed Edge:</td>
+                        <td>
+                            <input type="text" id="bottomBleedEdge" ng-model="bottomBleedEdge" tabindex="11" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#bottomBleedEdge">Copy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="outputbox-heading">Left Spine Edge:</td>
+                        <td>
+                            <input type="text" id="leftSpineEdge" ng-model="leftSpineEdge" tabindex="12" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#leftSpineEdge">Copy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="outputbox-heading">Right Spine Edge:</td>
+                        <td>
+                            <input type="text" id="rightSpineEdge" ng-model="rightSpineEdge" tabindex="13" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#rightSpineEdge">Copy</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="showCoverCentres">
+                        <td class="outputbox-heading">Front Cover Centre:</td>
+                        <td>
+                            <input type="text" id="frontCoverCentre" ng-model="frontCoverCentre" tabindex="14" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#frontCoverCentre">Copy</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="showCoverCentres">
+                        <td class="outputbox-heading">Back Cover Centre:</td>
+                        <td>
+                            <input type="text" id="backCoverCentre" ng-model="backCoverCentre" tabindex="15" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#backCoverCentre">Copy</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
     <div class="preview">
         <canvas id="previewcanvas"></canvas>
