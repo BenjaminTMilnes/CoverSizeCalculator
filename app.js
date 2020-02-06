@@ -329,7 +329,7 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         var topBleedEdge = new Length(b.magnitude, "mm");
         var bottomBleedEdge = new Length(b.magnitude + ph.magnitude, "mm");
         var leftSpineEdge = new Length(b.magnitude + pw.magnitude, "mm");
-        var rightSpineEdge = new Length(b.magnitude * 2 + pw.magnitude + pt.magnitude * $scope.numberOfPages, "mm");
+        var rightSpineEdge = new Length(b.magnitude + pw.magnitude + pt.magnitude * $scope.numberOfPages, "mm");
         var backCoverCentre = new Length(b.magnitude + pw.magnitude / 2, "mm");
         var frontCoverCentre = new Length(b.magnitude + pw.magnitude * 1.5 + pt.magnitude * $scope.numberOfPages, "mm");
 
