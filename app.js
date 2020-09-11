@@ -139,7 +139,7 @@ class App extends Application {
     constructor(canvasId) {
         super(canvasId);
 
-        this.resolutionFactor = 1;
+        this.resolutionFactor = 4;
 
         this.elements = [];
     }
@@ -149,7 +149,7 @@ class App extends Application {
 
         this.graphics = new GraphicsContext(this.context);
 
-        l.centre = v2(this.width / 2, this.height / 2);
+        l.centre = v2(this.width / 8, this.height / 8);
 
         this.elements.push(l);
     }

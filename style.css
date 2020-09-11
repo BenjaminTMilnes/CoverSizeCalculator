@@ -5,6 +5,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: lighter;
     font-size: 13px;
+    user-select: none;
 }
 
 .grid {
