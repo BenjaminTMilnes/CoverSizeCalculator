@@ -94,30 +94,30 @@ class CoverLayout {
         this.drawMeasureLine(graphics, e1.add(v2(4, -b * 2)), e2.add(v2(-4, -b * 2)), "Total Width");
         this.drawMeasureLine(graphics, e5.add(v2(4, -b)), e6.add(v2(-4, -b)), "Spine Width");
 
-        graphics.drawText("Total Height".toUpperCase(), e1.add(v2(-b - 5, this.bleed + this.pageHeight / 2)), "bottomcentre", -90, "Arial", 10, c1);
-        graphics.drawText("Total Width".toUpperCase(), e1.add(v2(this.bleed + this.pageWidth * 0.75, -2 * b - 5)), "bottomcentre", 0, "Arial", 10, c1);
-        graphics.drawText("Spine Width".toUpperCase(), e1.add(v2(this.bleed + this.pageWidth + this.spineWidth / 2, -b - 10)), "bottomcentre", 0, "Arial", 10, c1);
+        graphics.drawText("Total Height".toUpperCase(), e1.add(v2(-b - 5, this.bleed + this.pageHeight / 2)), "bottomcentre", -90, "Arial", 10, "normal", "normal", c1);
+        graphics.drawText("Total Width".toUpperCase(), e1.add(v2(this.bleed + this.pageWidth * 0.75, -2 * b - 5)), "bottomcentre", 0, "Arial", 10, "normal", "normal", c1);
+        graphics.drawText("Spine Width".toUpperCase(), e1.add(v2(this.bleed + this.pageWidth + this.spineWidth / 2, -b - 10)), "bottomcentre", 0, "Arial", 10, "normal", "normal", c1);
 
-        graphics.drawText("Front Cover", e14.add(v2(0, this.pageHeight / 2)), "middlecentre", 0, "Book Antiqua", 30, "#F0F0F0");
-        graphics.drawText("Back Cover", e13.add(v2(0, this.pageHeight / 2)), "middlecentre", 0, "Book Antiqua", 30, "#F0F0F0");
+        graphics.drawText("Front Cover", e14.add(v2(0, this.pageHeight / 2)), "middlecentre", 0, "Book Antiqua", 30, "normal", "normal", "#F0F0F0");
+        graphics.drawText("Back Cover", e13.add(v2(0, this.pageHeight / 2)), "middlecentre", 0, "Book Antiqua", 30, "normal", "normal", "#F0F0F0");
 
         if (this.spineWidth > 20) {
-            graphics.drawText("Spine".toUpperCase(), e5.add(v2(this.spineWidth / 2, this.pageHeight / 8)), "middlecentre", 90, "Book Antiqua", 15, "#F0F0F0");
+            graphics.drawText("Spine".toUpperCase(), e5.add(v2(this.spineWidth / 2, this.pageHeight / 8)), "middlecentre", 90, "Book Antiqua", 15, "normal", "normal", "#F0F0F0");
         }
 
-        graphics.drawText("Left Spine Edge".toUpperCase(), e5.add(v2(-5, this.pageHeight / 2)), "bottomcentre", -90, "Arial", 10, c1);
-        graphics.drawText("Right Spine Edge".toUpperCase(), e6.add(v2(5, this.pageHeight / 2)), "bottomcentre", 90, "Arial", 10, c1);
+        graphics.drawText("Left Spine Edge".toUpperCase(), e5.add(v2(-5, this.pageHeight / 2)), "bottomcentre", -90, "Arial", 10, "normal", "normal", c1);
+        graphics.drawText("Right Spine Edge".toUpperCase(), e6.add(v2(5, this.pageHeight / 2)), "bottomcentre", 90, "Arial", 10, "normal", "normal", c1);
 
         if (this.bleed > 0) {
-            graphics.drawText("Left Bleed Edge".toUpperCase(), e9.add(v2(5, -this.bleed + this.pageHeight / 2)), "bottomcentre", 90, "Arial", 10, c2);
-            graphics.drawText("Right Bleed Edge".toUpperCase(), e10.add(v2(-5, -this.bleed + this.pageHeight / 2)), "bottomcentre", -90, "Arial", 10, c2);
-            graphics.drawText("Top Bleed Edge".toUpperCase(), e9.add(v2(this.pageWidth / 10, 5)), "topleft", 0, "Arial", 10, c2);
-            graphics.drawText("Bottom Bleed Edge".toUpperCase(), e12.add(v2(this.pageWidth / 10, -5)), "bottomleft", 0, "Arial", 10, c2);
+            graphics.drawText("Left Bleed Edge".toUpperCase(), e9.add(v2(5, -this.bleed + this.pageHeight / 2)), "bottomcentre", 90, "Arial", 10, "normal", "normal", c2);
+            graphics.drawText("Right Bleed Edge".toUpperCase(), e10.add(v2(-5, -this.bleed + this.pageHeight / 2)), "bottomcentre", -90, "Arial", 10, "normal", "normal", c2);
+            graphics.drawText("Top Bleed Edge".toUpperCase(), e9.add(v2(this.pageWidth / 10, 5)), "topleft", 0, "Arial", 10, "normal", "normal", c2);
+            graphics.drawText("Bottom Bleed Edge".toUpperCase(), e12.add(v2(this.pageWidth / 10, -5)), "bottomleft", 0, "Arial", 10, "normal", "normal", c2);
         }
 
         if (this.showCoverCentres) {
-            graphics.drawText("Front Cover Centre".toUpperCase(), e14.add(v2(5, this.pageHeight / 4)), "bottomcentre", 90, "Arial", 10, c3);
-            graphics.drawText("Back Cover Centre".toUpperCase(), e13.add(v2(-5, this.pageHeight / 4)), "bottomcentre", -90, "Arial", 10, c3);
+            graphics.drawText("Front Cover Centre".toUpperCase(), e14.add(v2(5, this.pageHeight / 4)), "bottomcentre", 90, "Arial", 10, "normal", "normal", c3);
+            graphics.drawText("Back Cover Centre".toUpperCase(), e13.add(v2(-5, this.pageHeight / 4)), "bottomcentre", -90, "Arial", 10, "normal", "normal", c3);
         }
     }
 }
