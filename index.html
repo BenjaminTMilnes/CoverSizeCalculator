@@ -79,6 +79,10 @@
                         <option value="size14">16.99 cm &times; 24.41 cm</option>
                         <option value="size15">18.9 cm &times; 24.61 cm</option>
                         <option value="a4">21 cm &times; 29.7 cm (A4)</option>
+                        <option value="a5">14.8 cm &times; 21 cm (A5)</option>
+                        <option value="a6">10.5 cm &times; 14.8 cm (A6)</option>
+                        <option value="b5">17.6 cm &times; 25 cm (B5)</option>
+                        <option value="b6">12.5 cm &times; 17.6 cm (B6)</option>
                     </select>
                 </div>
                 <div class="control">
@@ -104,6 +108,10 @@
                 <div class="control">
                     <label for="showCoverCentres">Show cover centres:</label>
                     <input type="checkbox" id="showCoverCentres" ng-model="showCoverCentres" />
+                </div>
+                <div class="control">
+                    <label for="showCoverThirds">Show cover thirds:</label>
+                    <input type="checkbox" id="showCoverThirds" ng-model="showCoverThirds" />
                 </div>
             </div>
         </div>
@@ -206,6 +214,38 @@
                             <input type="text" id="backCoverCentre" ng-model="backCoverCentre" tabindex="15" /></td>
                         <td>
                             <button class="copybutton" data-clipboard-target="#backCoverCentre">Copy</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="showCoverThirds">
+                        <td class="outputbox-heading">Front Cover First Third:</td>
+                        <td>
+                            <input type="text" id="frontCoverFirstThird" ng-model="frontCoverFirstThird" tabindex="16" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#frontCoverFirstThird">Copy</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="showCoverThirds">
+                        <td class="outputbox-heading">Front Cover Second Third:</td>
+                        <td>
+                            <input type="text" id="frontCoverSecondThird" ng-model="frontCoverSecondThird" tabindex="17" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#frontCoverSecondThird">Copy</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="showCoverThirds">
+                        <td class="outputbox-heading">Back Cover First Third:</td>
+                        <td>
+                            <input type="text" id="backCoverFirstThird" ng-model="backCoverFirstThird" tabindex="18" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#backCoverFirstThird">Copy</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="showCoverThirds">
+                        <td class="outputbox-heading">Back Cover Second Third:</td>
+                        <td>
+                            <input type="text" id="backCoverSecondThird" ng-model="backCoverSecondThird" tabindex="19" /></td>
+                        <td>
+                            <button class="copybutton" data-clipboard-target="#backCoverSecondThird">Copy</button>
                         </td>
                     </tr>
                 </table>

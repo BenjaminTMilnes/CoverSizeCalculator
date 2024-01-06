@@ -11,6 +11,7 @@ class CoverLayout {
         this.centre = v2(500, 500);
 
         this.showCoverCentres = true;
+        this.showCoverThirds = true;
     }
 
     get spineWidth() {
@@ -48,6 +49,7 @@ class CoverLayout {
         var c1 = "hsla(220, 60%, 70%, 1)";
         var c2 = "hsla(300, 60%, 70%, 1)";
         var c3 = "hsla(350, 60%, 70%, 1)";
+        var c4 = "hsla(20, 60%, 70%, 1)";
 
         var e1 = this.centre.add(v2(-this.spineWidth / 2 - this.pageWidth - this.bleed, -this.pageHeight / 2 - this.bleed));
         var e2 = e1.add(v2(this.pageWidth * 2 + this.spineWidth + this.bleed * 2, 0));
@@ -65,7 +67,11 @@ class CoverLayout {
         var e12 = e4.add(v2(this.bleed, - this.bleed));
 
         var e13 = e9.add(v2(this.pageWidth / 2));
+        var e13a = e9.add(v2(this.pageWidth * 1 / 3));
+        var e13b = e9.add(v2(this.pageWidth * 2 / 3));
         var e14 = e10.add(v2(- this.pageWidth / 2));
+        var e14a = e10.add(v2(- this.pageWidth * 1 / 3));
+        var e14b = e10.add(v2(- this.pageWidth * 2 / 3));
 
         graphics.drawPath([e1, e2, e3, e4, e1], "rgba(32, 32, 32, 1)", "black", 0);
         graphics.drawPath([e5, e6, e7, e8, e5], "rgba(48, 48, 48, 1)", "black", 0);
@@ -88,6 +94,13 @@ class CoverLayout {
         if (this.showCoverCentres) {
             this.drawVerticalGuide(graphics, e13.x, c3);
             this.drawVerticalGuide(graphics, e14.x, c3);
+        }
+
+        if (this.showCoverThirds) {
+            this.drawVerticalGuide(graphics, e13a.x, c4);
+            this.drawVerticalGuide(graphics, e13b.x, c4);
+            this.drawVerticalGuide(graphics, e14a.x, c4);
+            this.drawVerticalGuide(graphics, e14b.x, c4);
         }
 
         this.drawMeasureLine(graphics, e1.add(v2(-b, 4)), e4.add(v2(-b, -4)), "Total Height");
@@ -118,6 +131,13 @@ class CoverLayout {
         if (this.showCoverCentres) {
             graphics.drawText("Front Cover Centre".toUpperCase(), e14.add(v2(5, this.pageHeight / 4)), "bottomcentre", 90, "Arial", 10, "normal", "normal", c3);
             graphics.drawText("Back Cover Centre".toUpperCase(), e13.add(v2(-5, this.pageHeight / 4)), "bottomcentre", -90, "Arial", 10, "normal", "normal", c3);
+        }
+
+        if (this.showCoverThirds) {
+            graphics.drawText("Front Cover First Third".toUpperCase(), e14b.add(v2(5, this.pageHeight / 4)), "bottomcentre", 90, "Arial", 10, "normal", "normal", c4);
+            graphics.drawText("Front Cover Second Third".toUpperCase(), e14a.add(v2(5, this.pageHeight / 4)), "bottomcentre", 90, "Arial", 10, "normal", "normal", c4);
+            graphics.drawText("Back Cover First Third".toUpperCase(), e13a.add(v2(5, this.pageHeight / 4)), "bottomcentre", 90, "Arial", 10, "normal", "normal", c4);
+            graphics.drawText("Back Cover Second Third".toUpperCase(), e13b.add(v2(5, this.pageHeight / 4)), "bottomcentre", 90, "Arial", 10, "normal", "normal", c4);
         }
     }
 }
@@ -282,6 +302,10 @@ var presets = {
     "size14": ["16.99 cm", "24.41 cm"],
     "size15": ["18.9 cm", "24.61 cm"],
     "a4": ["21 cm", "29.7 cm"],
+    "a5": ["14.8 cm", "21 cm"],
+    "a6": ["10.5 cm", "14.8 cm"],
+    "b5": ["17.6 cm", "25 cm"],
+    "b6": ["12.5 cm", "17.6 cm"],
 }
 
 var application = angular.module("CoverSizeCalculator", []);
@@ -294,6 +318,7 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
     $scope.numberOfPages = 350;
     $scope.bleed = "0.125 in";
     $scope.showCoverCentres = true;
+    $scope.showCoverThirds = true;
 
     $scope.outputUnits = "cm";
 
@@ -332,6 +357,10 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         var rightSpineEdge = new Length(b.magnitude + pw.magnitude + pt.magnitude * $scope.numberOfPages, "mm");
         var backCoverCentre = new Length(b.magnitude + pw.magnitude / 2, "mm");
         var frontCoverCentre = new Length(b.magnitude + pw.magnitude * 1.5 + pt.magnitude * $scope.numberOfPages, "mm");
+        var backCoverFirstThird = new Length(b.magnitude + pw.magnitude * 1 / 3, "mm");
+        var backCoverSecondThird = new Length(b.magnitude + pw.magnitude * 2 / 3, "mm");
+        var frontCoverFirstThird = new Length(b.magnitude + pw.magnitude * (4 / 3) + pt.magnitude * $scope.numberOfPages, "mm");
+        var frontCoverSecondThird = new Length(b.magnitude + pw.magnitude * (5 / 3) + pt.magnitude * $scope.numberOfPages, "mm");
 
         $scope.totalWidth = totalWidth.toUnit($scope.outputUnits).toString();
         $scope.totalHeight = totalHeight.toUnit($scope.outputUnits).toString();
@@ -344,6 +373,10 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         $scope.rightSpineEdge = rightSpineEdge.toUnit($scope.outputUnits).toString();
         $scope.backCoverCentre = backCoverCentre.toUnit($scope.outputUnits).toString();
         $scope.frontCoverCentre = frontCoverCentre.toUnit($scope.outputUnits).toString();
+        $scope.backCoverFirstThird = backCoverFirstThird.toUnit($scope.outputUnits).toString();
+        $scope.backCoverSecondThird = backCoverSecondThird.toUnit($scope.outputUnits).toString();
+        $scope.frontCoverFirstThird = frontCoverFirstThird.toUnit($scope.outputUnits).toString();
+        $scope.frontCoverSecondThird = frontCoverSecondThird.toUnit($scope.outputUnits).toString();
     }
 
     $scope.updateCanvas = function () {
@@ -361,9 +394,10 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         l.numberOfPages = $scope.numberOfPages;
         l.bleed = r2 * b.magnitude;
         l.showCoverCentres = $scope.showCoverCentres;
+        l.showCoverThirds = $scope.showCoverThirds;
     }
 
-    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "bleed", "showCoverCentres", "outputUnits"], function (newValues, oldValues) {
+    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "bleed", "showCoverCentres", "showCoverThirds", "outputUnits"], function (newValues, oldValues) {
         $scope.updateOutput();
         $scope.updateCanvas();
     });
