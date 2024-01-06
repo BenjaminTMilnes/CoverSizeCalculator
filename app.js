@@ -72,6 +72,8 @@ class CoverLayout {
         var e14 = e10.add(v2(- this.pageWidth / 2));
         var e14a = e10.add(v2(- this.pageWidth * 1 / 3));
         var e14b = e10.add(v2(- this.pageWidth * 2 / 3));
+        
+        var e15 = e2.add(v2(0, this.pageHeight / 2));
 
         graphics.drawPath([e1, e2, e3, e4, e1], "rgba(32, 32, 32, 1)", "black", 0);
         graphics.drawPath([e5, e6, e7, e8, e5], "rgba(48, 48, 48, 1)", "black", 0);
@@ -94,6 +96,7 @@ class CoverLayout {
         if (this.showCoverCentres) {
             this.drawVerticalGuide(graphics, e13.x, c3);
             this.drawVerticalGuide(graphics, e14.x, c3);
+            this.drawHorizontalGuide(graphics, e15.y, c3);
         }
 
         if (this.showCoverThirds) {
@@ -349,14 +352,19 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         var totalWidth = new Length(b.magnitude * 2 + pw.magnitude * 2 + pt.magnitude * $scope.numberOfPages, "mm");
         var totalHeight = new Length(b.magnitude * 2 + ph.magnitude, "mm");
         var spineWidth = new Length(pt.magnitude * $scope.numberOfPages, "mm");
+
         var leftBleedEdge = new Length(b.magnitude, "mm");
         var rightBleedEdge = new Length(b.magnitude + pw.magnitude * 2 + pt.magnitude * $scope.numberOfPages, "mm");
         var topBleedEdge = new Length(b.magnitude, "mm");
         var bottomBleedEdge = new Length(b.magnitude + ph.magnitude, "mm");
+
         var leftSpineEdge = new Length(b.magnitude + pw.magnitude, "mm");
         var rightSpineEdge = new Length(b.magnitude + pw.magnitude + pt.magnitude * $scope.numberOfPages, "mm");
+
         var backCoverCentre = new Length(b.magnitude + pw.magnitude / 2, "mm");
         var frontCoverCentre = new Length(b.magnitude + pw.magnitude * 1.5 + pt.magnitude * $scope.numberOfPages, "mm");
+        var verticalCentre = new Length(b.magnitude + ph.magnitude / 2, "mm");
+
         var backCoverFirstThird = new Length(b.magnitude + pw.magnitude * 1 / 3, "mm");
         var backCoverSecondThird = new Length(b.magnitude + pw.magnitude * 2 / 3, "mm");
         var frontCoverFirstThird = new Length(b.magnitude + pw.magnitude * (4 / 3) + pt.magnitude * $scope.numberOfPages, "mm");
@@ -365,14 +373,19 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         $scope.totalWidth = totalWidth.toUnit($scope.outputUnits).toString();
         $scope.totalHeight = totalHeight.toUnit($scope.outputUnits).toString();
         $scope.spineWidth = spineWidth.toUnit($scope.outputUnits).toString();
+
         $scope.leftBleedEdge = leftBleedEdge.toUnit($scope.outputUnits).toString();
         $scope.rightBleedEdge = rightBleedEdge.toUnit($scope.outputUnits).toString();
         $scope.topBleedEdge = topBleedEdge.toUnit($scope.outputUnits).toString();
         $scope.bottomBleedEdge = bottomBleedEdge.toUnit($scope.outputUnits).toString();
+
         $scope.leftSpineEdge = leftSpineEdge.toUnit($scope.outputUnits).toString();
         $scope.rightSpineEdge = rightSpineEdge.toUnit($scope.outputUnits).toString();
+
         $scope.backCoverCentre = backCoverCentre.toUnit($scope.outputUnits).toString();
         $scope.frontCoverCentre = frontCoverCentre.toUnit($scope.outputUnits).toString();
+        $scope.verticalCentre = verticalCentre.toUnit($scope.outputUnits).toString();
+
         $scope.backCoverFirstThird = backCoverFirstThird.toUnit($scope.outputUnits).toString();
         $scope.backCoverSecondThird = backCoverSecondThird.toUnit($scope.outputUnits).toString();
         $scope.frontCoverFirstThird = frontCoverFirstThird.toUnit($scope.outputUnits).toString();
