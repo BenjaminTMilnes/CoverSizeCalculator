@@ -8,6 +8,8 @@ class CoverLayout {
         this.numberOfPages = 350;
         this.bleed = 10;
 
+        this.format = "papercover";
+
         this.centre = v2(500, 500);
 
         this.showCoverCentres = true;
@@ -320,6 +322,7 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
     $scope.paperThickness = "0.0025 in";
     $scope.numberOfPages = 350;
     $scope.bleed = "0.125 in";
+    $scope.format = "papercover";
     $scope.showCoverCentres = true;
     $scope.showCoverThirds = true;
 
@@ -410,7 +413,7 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         l.showCoverThirds = $scope.showCoverThirds;
     }
 
-    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "bleed", "showCoverCentres", "showCoverThirds", "outputUnits"], function (newValues, oldValues) {
+    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "bleed", "format", "showCoverCentres", "showCoverThirds", "outputUnits"], function (newValues, oldValues) {
         $scope.updateOutput();
         $scope.updateCanvas();
     });

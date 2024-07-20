@@ -106,6 +106,13 @@
                     <input type="text" id="bleed" ng-model="bleed" tabindex="5" placeholder="e.g. 0.125 in" />
                 </div>
                 <div class="control">
+                    <label for="format">Format</label>
+                    <select id="format" ng-model="format">
+                        <option value="papercover">Papercover</option>
+                        <option value="hardcover">Hardcover</option>
+                    </select>
+                </div>
+                <div class="control">
                     <label for="showCoverCentres">Show cover centres:</label>
                     <input type="checkbox" id="showCoverCentres" ng-model="showCoverCentres" />
                 </div>
