@@ -102,15 +102,19 @@
                     <input type="text" id="numberofpages" ng-model="numberOfPages" tabindex="4" placeholder="e.g. 350" />
                 </div>
                 <div class="control">
+                    <label for="format">Format</label>
+                    <select id="format" ng-model="format">
+                        <option value="papercover" selected="selected">Papercover</option>
+                        <option value="hardcover">Hardcover</option>
+                    </select>
+                </div>
+                <div class="control">
                     <label for="bleed">Bleed:</label>
                     <input type="text" id="bleed" ng-model="bleed" tabindex="5" placeholder="e.g. 0.125 in" />
                 </div>
-                <div class="control">
-                    <label for="format">Format</label>
-                    <select id="format" ng-model="format">
-                        <option value="papercover">Papercover</option>
-                        <option value="hardcover">Hardcover</option>
-                    </select>
+                <div class="control" ng-show="format == 'hardcover'">
+                    <label for="wrap">Wrap:</label>
+                    <input type="text" id="wrap" ng-model="wrap" tabindex="6" placeholder="e.g. 15 mm" />
                 </div>
                 <div class="control">
                     <label for="showCoverCentres">Show cover centres:</label>
