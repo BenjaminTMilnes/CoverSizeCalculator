@@ -325,6 +325,12 @@ class Length {
         return this.add(length.negate());
     }
 
+    times(scalar) {
+        var l3 = new Length(this.magnitude * scalar, this.unit);
+
+        return l3;
+    }
+
     toMM() {
         if (this.unit == "mm") {
             return this;
@@ -431,67 +437,65 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
     }
 
     $scope.updateOutput = function () {
-        var pw = this.getLength($scope.pageWidth, new Length(176, "mm")).toMM();
-        var ph = this.getLength($scope.pageHeight, new Length(250, "mm")).toMM();
-        var pt = this.getLength($scope.paperThickness, new Length(0.002252, "in")).toMM();
+        var pageWidth = this.getLength($scope.pageWidth, new Length(176, "mm"));
+        var pageHeight = this.getLength($scope.pageHeight, new Length(250, "mm"));
+        var paperThickness = this.getLength($scope.paperThickness, new Length(0.002252, "in"));
+        var numberOfPages = $scope.numberOfPages;
 
-        var m = this.getLength($scope.margin, new Length(0.125, "in")).toMM();
-        var sm = this.getLength($scope.spineMargin, new Length(1.59, "mm")).toMM();
+        var margin = this.getLength($scope.margin, new Length(0.125, "in"));
+        var spineMargin = this.getLength($scope.spineMargin, new Length(1.59, "mm"));
 
-        var b = this.getLength($scope.bleed, new Length(0.125, "in")).toMM();
-        var w = this.getLength($scope.wrap, new Length(15, "mm")).toMM();
+        var bleed = this.getLength($scope.bleed, new Length(0.125, "in"));
+        var wrap = this.getLength($scope.wrap, new Length(15, "mm"));
 
         // For some reason, the hinge adds about an extra 2mm to the width of each side of the cover for a hardcover book. I don't know why this is.
 
-        var h = new Length(2, "mm").toMM();
+        var hinge = new Length(2, "mm");
 
-        var bw = b;
+        var z = Length.z;
 
-        if ($scope.format == "hardcover") {
-            bw = w;
-        }
-
-        var sw = new Length(pt.magnitude * $scope.numberOfPages, "mm");
+        var spineWidth = paperThickness.times(numberOfPages);
 
         if ($scope.format == "hardcover") {
-            sw = new Length(getHardcoverSpineWidth($scope.numberOfPages), "in").toMM();
+            spineWidth = new Length(getHardcoverSpineWidth(numberOfPages), "in");
         }
 
-        var totalWidth = new Length(b.magnitude * 2 + pw.magnitude * 2 + sw.magnitude, "mm");
-        var totalHeight = new Length(b.magnitude * 2 + ph.magnitude, "mm");
-        var spineWidth = sw;
+        var totalWidth = z.add(bleed.times(2)).add(pageWidth.times(2)).add(spineWidth);
+        var totalHeight = z.add(bleed.times(2)).add(pageHeight);
 
         if ($scope.format == "hardcover") {
-            totalWidth = new Length(w.magnitude * 2 + m.magnitude * 2 + pw.magnitude * 2 + h.magnitude * 2 + sw.magnitude, "mm");
-            totalHeight = new Length(w.magnitude * 2 + m.magnitude * 2 + ph.magnitude, "mm");
+            totalWidth = z.add(wrap.times(2)).add(margin.times(2)).add(pageWidth.times(2)).add(hinge.times(2)).add(spineWidth);
+            totalHeight = z.add(wrap.times(2)).add(margin.times(2)).add(pageHeight);
         }
 
-        var leftBleedEdge = new Length(bw.magnitude, "mm");
-        var rightBleedEdge = new Length(bw.magnitude + pw.magnitude * 2 + sw.magnitude, "mm");
-        var topBleedEdge = new Length(bw.magnitude, "mm");
-        var bottomBleedEdge = new Length(bw.magnitude + ph.magnitude, "mm");
+        var leftBleedEdge = z.add(bleed);
+        var rightBleedEdge = totalWidth.subtract(bleed);
+        var topBleedEdge = z.add(bleed);
+        var bottomBleedEdge = totalHeight.subtract(bleed);
 
         if ($scope.format == "hardcover") {
-            rightBleedEdge = new Length(w.magnitude + m.magnitude * 2 + pw.magnitude * 2 + h.magnitude * 2 + sw.magnitude, "mm");
-            bottomBleedEdge = new Length(w.magnitude + m.magnitude * 2 + ph.magnitude, "mm");
+            leftBleedEdge = z.add(wrap);
+            rightBleedEdge = totalWidth.subtract(wrap);
+            topBleedEdge = z.add(wrap);
+            bottomBleedEdge = totalHeight.subtract(wrap);
         }
 
-        var leftSpineEdge = new Length(b.magnitude + pw.magnitude, "mm");
-        var rightSpineEdge = new Length(b.magnitude + pw.magnitude + sw.magnitude, "mm");
+        var leftSpineEdge = leftBleedEdge.add(pageWidth);
+        var rightSpineEdge = leftSpineEdge.add(spineWidth);
 
         if ($scope.format == "hardcover") {
-            leftSpineEdge = new Length(w.magnitude + m.magnitude + pw.magnitude + h.magnitude, "mm");
-            rightSpineEdge = new Length(w.magnitude + m.magnitude + pw.magnitude + h.magnitude + sw.magnitude, "mm");
+            leftSpineEdge = leftBleedEdge.add(margin).add(pageWidth).add(hinge);
+            rightSpineEdge = leftSpineEdge.add(spineWidth);
         }
 
-        var backCoverCentre = new Length(bw.magnitude + pw.magnitude / 2, "mm");
-        var frontCoverCentre = new Length(bw.magnitude + pw.magnitude * 1.5 + sw.magnitude, "mm");
-        var verticalCentre = new Length(bw.magnitude + ph.magnitude / 2, "mm");
+        var backCoverCentre = leftBleedEdge.add(pageWidth.times(0.5));
+        var frontCoverCentre = rightBleedEdge.subtract(pageWidth.times(0.5));
+        var verticalCentre = topBleedEdge.add(pageHeight.times(0.5));
 
-        var backCoverFirstThird = new Length(bw.magnitude + pw.magnitude * 1 / 3, "mm");
-        var backCoverSecondThird = new Length(bw.magnitude + pw.magnitude * 2 / 3, "mm");
-        var frontCoverFirstThird = new Length(bw.magnitude + pw.magnitude * (4 / 3) + sw.magnitude, "mm");
-        var frontCoverSecondThird = new Length(bw.magnitude + pw.magnitude * (5 / 3) + sw.magnitude, "mm");
+        var backCoverFirstThird = leftBleedEdge.add(pageWidth.times(1 / 3));
+        var backCoverSecondThird = leftBleedEdge.add(pageWidth.times(2 / 3));
+        var frontCoverFirstThird = rightBleedEdge.subtract(pageWidth.times(2 / 3));
+        var frontCoverSecondThird = rightBleedEdge.subtract(pageWidth.times(1 / 3));
 
         $scope.totalWidth = totalWidth.toUnit($scope.outputUnits).toString();
         $scope.totalHeight = totalHeight.toUnit($scope.outputUnits).toString();
