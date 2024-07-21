@@ -1,6 +1,8 @@
 
-function getHardcoverSpineWidth(numberOfPages, paperThickness = 0.002252) {
+function getHardcoverSpineWidth(numberOfPages, paperThickness = 0.002252, units = "in") {
     // No fixed value or formula has been given for the spine width of a hardcover book - I've had to work out this formula empirically.
+
+    // The spine width increases linearly with a fixed offset - i.e., y = ax + b.
 
     var ammWhitePaper = 0.0572;
     var ammCreamPaper = 0.0635;
@@ -10,7 +12,22 @@ function getHardcoverSpineWidth(numberOfPages, paperThickness = 0.002252) {
     var ainCreamPaper = ammCreamPaper / 25.4;
     var bin = bmm / 25.4;
 
-    return ainWhitePaper * numberOfPages + bin;
+    if (paperThickness == 0.0025) {
+        if (units == "mm") {
+            return ammCreamPaper * numberOfPages + bmm;
+        }
+        else {
+            return ainCreamPaper * numberOfPages + bin;
+        }
+    }
+    else {
+        if (units == "mm") {
+            return ammWhitePaper * numberOfPages + bmm;
+        }
+        else {
+            return ainWhitePaper * numberOfPages + bin;
+        }
+    }
 }
 
 class CoverLayout {
@@ -20,11 +37,20 @@ class CoverLayout {
         this.pageHeight = 500;
         this.paperThickness = 0.1;
         this.numberOfPages = 350;
-        this.bleed = 10;
 
         this.format = "papercover";
 
+        this.margin = 10;
+        this.spineMargin = 5;
+
+        // The 'bleed' property is only for papercover books.
+
+        this.bleed = 10;
+
+        // The two properties below are for hardcover books.
+
         this.wrap = 30;
+        this.hinge = 20;
 
         this.centre = v2(500, 500);
 
@@ -33,12 +59,7 @@ class CoverLayout {
     }
 
     get spineWidth() {
-        if (this.format == "hardcover") {
-            return getHardcoverSpineWidth(this.numberOfPages * 60);
-        }
-        else {
-            return this.paperThickness * this.numberOfPages;
-        }
+        return this.paperThickness * this.numberOfPages;
     }
 
     update() { }
@@ -115,7 +136,7 @@ class CoverLayout {
         this.drawHorizontalGuide(graphics, e1.y, c1);
         this.drawHorizontalGuide(graphics, e4.y, c1);
 
-        if (this.bleed > 0) {
+        if (bleed > 0) {
             this.drawVerticalGuide(graphics, e9.x, c2);
             this.drawVerticalGuide(graphics, e10.x, c2);
             this.drawHorizontalGuide(graphics, e9.y, c2);
@@ -348,9 +369,17 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
     $scope.pageHeight = "25.0 cm";
     $scope.paperThickness = "0.0025 in";
     $scope.numberOfPages = 350;
-    $scope.bleed = "0.125 in";
+    
     $scope.format = "papercover";
+
+    $scope.margin = "0.125 in";
+    $scope.spineMargin = "1.59 mm";
+
+    $scope.bleed = "0.125 in";
+
     $scope.wrap = "15 mm";
+    $scope.hinge = "10 mm";
+
     $scope.showCoverCentres = true;
     $scope.showCoverThirds = true;
 
@@ -378,6 +407,10 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         var pw = this.getLength($scope.pageWidth, new Length(176, "mm")).toMM();
         var ph = this.getLength($scope.pageHeight, new Length(250, "mm")).toMM();
         var pt = this.getLength($scope.paperThickness, new Length(0.002252, "in")).toMM();
+
+        var m = this.getLength($scope.margin, new Length(0.125, "in")).toMM();
+        var sm = this.getLength($scope.spineMargin, new Length(1.59, "mm")).toMM();
+
         var b = this.getLength($scope.bleed, new Length(0.125, "in")).toMM();
         var w = this.getLength($scope.wrap, new Length(15, "mm")).toMM();
 
@@ -440,6 +473,10 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         var pw = this.getLength($scope.pageWidth, new Length(176, "mm")).toMM();
         var ph = this.getLength($scope.pageHeight, new Length(250, "mm")).toMM();
         var pt = this.getLength($scope.paperThickness, new Length(0.002252, "in")).toMM();
+
+        var m = this.getLength($scope.margin, new Length(0.125, "in")).toMM();
+        var sm = this.getLength($scope.spineMargin, new Length(1.59, "mm")).toMM();
+
         var b = this.getLength($scope.bleed, new Length(0.125, "in")).toMM();
         var w = this.getLength($scope.wrap, new Length(15, "mm")).toMM();
 
@@ -462,14 +499,17 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         l.pageWidth = r2 * pw.magnitude;
         l.paperThickness = r2 * pt.magnitude;
         l.numberOfPages = $scope.numberOfPages;
-        l.bleed = r2 * b.magnitude;
+        
         l.format = $scope.format;
+
+        l.bleed = r2 * b.magnitude;
         l.wrap = r2 * w.magnitude;
+
         l.showCoverCentres = $scope.showCoverCentres;
         l.showCoverThirds = $scope.showCoverThirds;
     }
 
-    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "bleed", "format", "wrap", "showCoverCentres", "showCoverThirds", "outputUnits"], function (newValues, oldValues) {
+    $scope.$watchGroup(["pageWidth", "pageHeight", "paperThickness", "numberOfPages", "format", "bleed", "wrap", "showCoverCentres", "showCoverThirds", "outputUnits"], function (newValues, oldValues) {
         $scope.updateOutput();
         $scope.updateCanvas();
     });

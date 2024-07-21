@@ -108,7 +108,7 @@
                         <option value="hardcover">Hardcover</option>
                     </select>
                 </div>
-                <div class="control">
+                <div class="control" ng-show="format == 'papercover'">
                     <label for="bleed">Bleed:</label>
                     <input type="text" id="bleed" ng-model="bleed" tabindex="5" placeholder="e.g. 0.125 in" />
                 </div>
