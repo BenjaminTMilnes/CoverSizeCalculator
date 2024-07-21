@@ -59,6 +59,8 @@ class CoverLayout {
     }
 
     get spineWidth() {
+        // Since this class just handles the visual representation of the cover - and not the actual cover calculations - for the spine width we can ignore the details of calculating the hardcover spine width.
+
         return this.paperThickness * this.numberOfPages;
     }
 
@@ -94,6 +96,8 @@ class CoverLayout {
         var c2 = "hsla(300, 60%, 70%, 1)";
         var c3 = "hsla(350, 60%, 70%, 1)";
         var c4 = "hsla(20, 60%, 70%, 1)";
+
+        // The 'wrap' value sort of takes the place of the 'bleed' value for hardcovers.
 
         var bleed = this.bleed;
 
