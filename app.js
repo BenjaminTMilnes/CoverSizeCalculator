@@ -533,40 +533,34 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
     }
 
     $scope.updateCanvas = function () {
-        var pw = this.getLength($scope.pageWidth, new Length(176, "mm")).toMM();
-        var ph = this.getLength($scope.pageHeight, new Length(250, "mm")).toMM();
-        var pt = this.getLength($scope.paperThickness, new Length(0.002252, "in")).toMM();
+        var pageWidth = this.getLength($scope.pageWidth, new Length(176, "mm"));
+        var pageHeight = this.getLength($scope.pageHeight, new Length(250, "mm"));
+        var paperThickness = this.getLength($scope.paperThickness, new Length(0.002252, "in"));
 
-        var m = this.getLength($scope.margin, new Length(0.125, "in")).toMM();
-        var sm = this.getLength($scope.spineMargin, new Length(1.59, "mm")).toMM();
+        var margin = this.getLength($scope.margin, new Length(0.125, "in"));
+        var spineMargin = this.getLength($scope.spineMargin, new Length(1.59, "mm"));
 
-        var b = this.getLength($scope.bleed, new Length(0.125, "in")).toMM();
-        var w = this.getLength($scope.wrap, new Length(15, "mm")).toMM();
+        var bleed = this.getLength($scope.bleed, new Length(0.125, "in"));
+        var wrap = this.getLength($scope.wrap, new Length(15, "mm"));
 
-        var bw = b;
-
-        if ($scope.format == "hardcover") {
-            bw = w;
-        }
-
-        var sw = new Length(pt.magnitude * $scope.numberOfPages, "mm");
+        var spineWidth = paperThickness.times($scope.numberOfPages);
 
         if ($scope.format == "hardcover") {
-            sw = new Length(getHardcoverSpineWidth($scope.numberOfPages), "in").toMM();
+            spineWidth = new Length(getHardcoverSpineWidth($scope.numberOfPages), "in");
         }
 
         l.pageHeight = 600;
 
-        var r2 = l.pageHeight / ph.magnitude;
+        var r = l.pageHeight / pageHeight.toMM().magnitude;
 
-        l.pageWidth = r2 * pw.magnitude;
-        l.paperThickness = r2 * pt.magnitude;
+        l.pageWidth = r * pageWidth.toMM().magnitude;
+        l.paperThickness = r * paperThickness.toMM().magnitude;
         l.numberOfPages = $scope.numberOfPages;
 
         l.format = $scope.format;
 
-        l.bleed = r2 * b.magnitude;
-        l.wrap = r2 * w.magnitude;
+        l.bleed = r * bleed.toMM().magnitude;
+        l.wrap = r * wrap.toMM().magnitude;
 
         l.showCoverCentres = $scope.showCoverCentres;
         l.showCoverThirds = $scope.showCoverThirds;
