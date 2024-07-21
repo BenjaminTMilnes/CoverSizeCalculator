@@ -497,6 +497,19 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         var frontCoverFirstThird = rightBleedEdge.subtract(pageWidth.times(2 / 3));
         var frontCoverSecondThird = rightBleedEdge.subtract(pageWidth.times(1 / 3));
 
+        if ($scope.format == "hardcover") {
+            backCoverCentre = leftBleedEdge.add(margin).add(pageWidth.times(0.5));
+            frontCoverCentre = rightBleedEdge.subtract(margin).subtract(pageWidth.times(0.5));
+            verticalCentre = topBleedEdge.add(margin).add(pageHeight.times(0.5));
+
+            backCoverFirstThird = leftBleedEdge.add(margin).add(pageWidth.times(1 / 3));
+            backCoverSecondThird = leftBleedEdge.add(margin).add(pageWidth.times(2 / 3));
+            frontCoverFirstThird = rightBleedEdge.subtract(margin).subtract(pageWidth.times(2 / 3));
+            frontCoverSecondThird = rightBleedEdge.subtract(margin).subtract(pageWidth.times(1 / 3));
+        }
+
+
+
         $scope.totalWidth = totalWidth.toUnit($scope.outputUnits).toString();
         $scope.totalHeight = totalHeight.toUnit($scope.outputUnits).toString();
         $scope.spineWidth = spineWidth.toUnit($scope.outputUnits).toString();
