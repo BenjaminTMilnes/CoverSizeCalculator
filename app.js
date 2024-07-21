@@ -298,6 +298,14 @@ class Length {
         this.unit = unit;
     }
 
+    static get zero() {
+        return new Length(0, "mm");
+    }
+
+    static get z() {
+        return Length.zero;
+    }
+
     toMM() {
         if (this.unit == "mm") {
             return this;
@@ -369,7 +377,7 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
     $scope.pageHeight = "25.0 cm";
     $scope.paperThickness = "0.0025 in";
     $scope.numberOfPages = 350;
-    
+
     $scope.format = "papercover";
 
     $scope.margin = "0.125 in";
@@ -414,6 +422,10 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         var b = this.getLength($scope.bleed, new Length(0.125, "in")).toMM();
         var w = this.getLength($scope.wrap, new Length(15, "mm")).toMM();
 
+        // For some reason, the hinge adds about an extra 2mm to the width of each side of the cover for a hardcover book. I don't know why this is.
+
+        var h = new Length(2, "mm").toMM();
+
         var bw = b;
 
         if ($scope.format == "hardcover") {
@@ -426,17 +438,32 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
             sw = new Length(getHardcoverSpineWidth($scope.numberOfPages), "in").toMM();
         }
 
-        var totalWidth = new Length(bw.magnitude * 2 + pw.magnitude * 2 + sw.magnitude, "mm");
-        var totalHeight = new Length(bw.magnitude * 2 + ph.magnitude, "mm");
+        var totalWidth = new Length(b.magnitude * 2 + pw.magnitude * 2 + sw.magnitude, "mm");
+        var totalHeight = new Length(b.magnitude * 2 + ph.magnitude, "mm");
         var spineWidth = sw;
+
+        if ($scope.format == "hardcover") {
+            totalWidth = new Length(w.magnitude * 2 + m.magnitude * 2 + pw.magnitude * 2 + h.magnitude * 2 + sw.magnitude, "mm");
+            totalHeight = new Length(w.magnitude * 2 + m.magnitude * 2 + ph.magnitude, "mm");
+        }
 
         var leftBleedEdge = new Length(bw.magnitude, "mm");
         var rightBleedEdge = new Length(bw.magnitude + pw.magnitude * 2 + sw.magnitude, "mm");
         var topBleedEdge = new Length(bw.magnitude, "mm");
         var bottomBleedEdge = new Length(bw.magnitude + ph.magnitude, "mm");
 
-        var leftSpineEdge = new Length(bw.magnitude + pw.magnitude, "mm");
-        var rightSpineEdge = new Length(bw.magnitude + pw.magnitude + sw.magnitude, "mm");
+        if ($scope.format == "hardcover") {
+            rightBleedEdge = new Length(w.magnitude + m.magnitude * 2 + pw.magnitude * 2 + h.magnitude * 2 + sw.magnitude, "mm");
+            bottomBleedEdge = new Length(w.magnitude + m.magnitude * 2 + ph.magnitude, "mm");
+        }
+
+        var leftSpineEdge = new Length(b.magnitude + pw.magnitude, "mm");
+        var rightSpineEdge = new Length(b.magnitude + pw.magnitude + sw.magnitude, "mm");
+
+        if ($scope.format == "hardcover") {
+            leftSpineEdge = new Length(w.magnitude + m.magnitude + pw.magnitude + h.magnitude, "mm");
+            rightSpineEdge = new Length(w.magnitude + m.magnitude + pw.magnitude + h.magnitude + sw.magnitude, "mm");
+        }
 
         var backCoverCentre = new Length(bw.magnitude + pw.magnitude / 2, "mm");
         var frontCoverCentre = new Length(bw.magnitude + pw.magnitude * 1.5 + sw.magnitude, "mm");
@@ -499,7 +526,7 @@ application.controller("MainController", ["$scope", "$rootScope", function MainC
         l.pageWidth = r2 * pw.magnitude;
         l.paperThickness = r2 * pt.magnitude;
         l.numberOfPages = $scope.numberOfPages;
-        
+
         l.format = $scope.format;
 
         l.bleed = r2 * b.magnitude;
