@@ -306,6 +306,25 @@ class Length {
         return Length.zero;
     }
 
+    add(length) {
+        var l1 = this.toMM();
+        var l2 = length.toMM();
+
+        var l3 = new Length(l1.magnitude + l2.magnitude, "mm");
+
+        return l3.toUnit(l1.unit);
+    }
+
+    negate() {
+        var l3 = new Length(-this.magnitude, this.unit);
+
+        return l3;
+    }
+
+    subtract(length) {
+        return this.add(length.negate());
+    }
+
     toMM() {
         if (this.unit == "mm") {
             return this;
